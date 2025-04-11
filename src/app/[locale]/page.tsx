@@ -7,9 +7,12 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { generateParagraphs, generateSingleSentence } from '@/lib/lorem-generator';
 import { Copy } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+
+import logo from '@/assets/brand/logo.png';
 
 export default function Home() {
 	const t = useTranslations('app');
@@ -63,10 +66,14 @@ export default function Home() {
 
 	return (
 		<div className='paper-texture flex flex-col bg-[#fffdf5]'>
-			{/* Header */}
 			<header className='fixed left-0 right-0 top-0 z-10 h-[60px] border-b border-amber-200 bg-white shadow-sm'>
 				<div className='container mx-auto flex h-full items-center justify-between px-4'>
 					<div className='flex items-center gap-6'>
+						<Link href='/'>
+							<div className='flex items-center gap-2'>
+								<Image src={logo} alt='Logo' width={32} height={32} />
+							</div>
+						</Link>
 						<Link
 							href='#'
 							className={`font-medium text-amber-900 ${activeTab === 'home' ? 'border-b-2 border-amber-500' : ''}`}
