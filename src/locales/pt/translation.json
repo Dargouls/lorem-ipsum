@@ -1,0 +1,27 @@
+{
+  "app": {
+    "title": "Gerar Lorem Ipsum",
+    "generate": "Gerar",
+    "paragraphsPlaceholder": "Número de parágrafos",
+    "paragraph": "Parágrafo",
+    "paragraphs": "parágrafos",
+    "copyText": "Copiar",
+    "copiedText": "Copiado!",
+    "singleSentence": "Frase única",
+    "fullText": "Texto completo",
+    "startWithClassic": "Começar com \"Lorem ipsum dolor sit amet...\"",
+    "navHome": "Início",
+    "navHowTo": "Como utilizar",
+    "quickCopy": "Cópia rápida",
+    "quickCopySuccess": "Parágrafo copiado!",
+    "quickCopyTooltip": "Copia um parágrafo de Lorem Ipsum para a área de transferência",
+    "howToTitle": "Como utilizar o Gerador Lorem Ipsum",
+    "howToDesc1": "O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. Tem sido o texto padrão desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos.",
+    "howToDesc2": "Este gerador permite que você crie textos Lorem Ipsum personalizados para suas necessidades de design e layout.",
+    "howToDesc3": "Para gerar um texto Lorem Ipsum, siga estes passos:",
+    "howToStep1": "Selecione o número de parágrafos desejado (de 1 a 10)",
+    "howToStep2": "Escolha se deseja começar com a frase clássica \"Lorem ipsum dolor sit amet...\"",
+    "howToStep3": "Clique no botão Gerar para criar o texto",
+    "howToStep4": "Use o botão Copiar para copiar o texto gerado para a área de transferência"
+  }
+} 

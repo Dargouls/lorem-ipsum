@@ -1,0 +1,27 @@
+{
+  "app": {
+    "title": "Generate Lorem Ipsum",
+    "generate": "Generate",
+    "paragraphsPlaceholder": "Number of paragraphs",
+    "paragraph": "Paragraph",
+    "paragraphs": "paragraphs",
+    "copyText": "Copy",
+    "copiedText": "Copied!",
+    "singleSentence": "Single sentence",
+    "fullText": "Full text",
+    "startWithClassic": "Start with \"Lorem ipsum dolor sit amet...\"",
+    "navHome": "Home",
+    "navHowTo": "How to use",
+    "quickCopy": "Quick Copy",
+    "quickCopySuccess": "Paragraph copied!",
+    "quickCopyTooltip": "Copies one Lorem Ipsum paragraph to your clipboard",
+    "howToTitle": "How to use the Lorem Ipsum Generator",
+    "howToDesc1": "Lorem Ipsum is a placeholder text commonly used in the printing and typesetting industry. It has been the industry's standard dummy text since the 16th century, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "howToDesc2": "This generator allows you to create customized Lorem Ipsum text for your design and layout needs.",
+    "howToDesc3": "To generate Lorem Ipsum text, follow these steps:",
+    "howToStep1": "Select the desired number of paragraphs (from 1 to 10)",
+    "howToStep2": "Choose whether to start with the classic phrase \"Lorem ipsum dolor sit amet...\"",
+    "howToStep3": "Click the Generate button to create the text",
+    "howToStep4": "Use the Copy button to copy the generated text to your clipboard"
+  }
+} 
