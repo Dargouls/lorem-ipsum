@@ -1,5 +1,6 @@
 'use client';
 
+import AdComponent from '@/components/AdComponnet/AdComponent';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -124,18 +125,21 @@ export default function Home() {
 					</div>
 				)}
 
+				{/* Anúncio lateral esquerda */}
+				<div className='fixed bottom-0 left-0 top-[60px] hidden w-32 border-r border-amber-100 bg-[#fffdf5] lg:flex'>
+					<AdComponent adSlot='9821715353' />
+				</div>
+
+				{/* Anúncio lateral direita */}
+				<div className='fixed bottom-0 right-0 top-[60px] hidden w-32 border-l border-amber-100 bg-[#fffdf5] lg:flex'>
+					{' '}
+					<AdComponent adSlot='9470361569' />
+				</div>
+
 				{/* Anúncio horizontal após os resultados */}
-				{/* <div className='mx-auto mt-6 w-full max-w-3xl overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
-					<ins
-						className='adsbygoogle'
-						style={{ display: 'block' }}
-						data-ad-client='ca-pub-3633949689305991'
-						data-ad-slot='3456789012'
-						data-ad-format='auto'
-						data-full-width-responsive='true'
-					></ins>
-					<Script id='horizontal-ad'>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</Script>
-				</div> */}
+				<div className='mx-auto mt-6 w-full max-w-3xl overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
+					<AdComponent adSlot='1460009608' />
+				</div>
 			</div>
 		</div>
 	);

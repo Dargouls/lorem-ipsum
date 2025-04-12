@@ -1,5 +1,6 @@
 'use client';
 
+import AdComponent from '@/components/AdComponnet/AdComponent';
 import { Card } from '@/components/ui/card';
 
 import { locales } from '@/middleware';
@@ -74,17 +75,9 @@ function HowToContent() {
 					</Card>
 
 					{/* Anúncio na página de Como Utilizar */}
-					{/* <div className='mt-6 w-full overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
-						<ins
-							className='adsbygoogle'
-							style={{ display: 'block' }}
-							data-ad-client='ca-pub-3633949689305991'
-							data-ad-slot='4567890123'
-							data-ad-format='auto'
-							data-full-width-responsive='true'
-						></ins>
-						<Script id='howto-ad'>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</Script>
-					</div> */}
+					<div className='mt-6 w-full overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
+						<AdComponent adSlot='4218034888' />
+					</div>
 				</div>
 			</div>
 		</div>
