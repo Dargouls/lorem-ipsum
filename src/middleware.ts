@@ -12,8 +12,8 @@ export default createMiddleware({
   // Locale padrão
   defaultLocale,
   
-  // Se um usuário visitar a raiz, ele será redirecionado para o locale apropriado
-  localePrefix: 'as-needed'
+  // Forçar que o locale sempre apareça na URL, mesmo sendo o padrão
+  localePrefix: 'always'
 });
 
 export const config = {

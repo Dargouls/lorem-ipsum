@@ -41,7 +41,7 @@ export default function Header({ ...props }: HeaderProps) {
 						</Link>
 						<Link
 							href={`/${locale}/how-to`}
-							className={`font-medium text-amber-900 ${pathname.includes(`/${locale}/how-to`) ? 'border-b-2 border-amber-500' : ''}`}
+							className={`font-medium text-amber-900 ${pathname === `/${locale}/how-to` ? 'border-b-2 border-amber-500' : ''}`}
 						>
 							{t('navHowTo')}
 						</Link>
