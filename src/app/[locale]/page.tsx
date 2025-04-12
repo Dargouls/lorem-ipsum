@@ -3,19 +3,15 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import Header from '@/components/ui/layout/header';
 import { generateParagraphs } from '@/lib/lorem-generator';
 import { locales } from '@/middleware';
 import { Copy } from 'lucide-react';
 import { NextIntlClientProvider, useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-
-import logo from '@/assets/brand/logo.png';
-import Image from 'next/image';
 
 export default function Home() {
 	const params = useParams();
@@ -87,67 +83,12 @@ function HomeContent() {
 		toast.success(t('copiedText'));
 	};
 
-	const handleQuickCopy = () => {
-		const quickParagraph = generateParagraphs(1, true)[0];
-		// Usar diretamente writeText e mostrar apenas um toast
-		navigator.clipboard.writeText(quickParagraph);
-		toast.success(t('quickCopySuccess'));
-	};
-
 	// Verifica se há texto gerado
 	const hasGeneratedText = loremText.length > 0;
 
 	return (
 		<div className='paper-texture flex flex-col bg-[#fffdf5]'>
-			{/* Header */}
-			<header className='fixed left-0 right-0 top-0 z-10 h-[60px] border-b border-amber-200 bg-white shadow-sm'>
-				<div className='container mx-auto flex h-full items-center justify-between px-4'>
-					<div className='flex items-center gap-6'>
-						<Link href='/'>
-							<Image src={logo} alt='Logo' className='h-8 w-8' />
-						</Link>
-						<Link
-							href='#'
-							className={`font-medium text-amber-900 ${activeTab === 'home' ? 'border-b-2 border-amber-500' : ''}`}
-							onClick={(e) => {
-								e.preventDefault();
-								setActiveTab('home');
-							}}
-						>
-							{t('navHome')}
-						</Link>
-						<Link
-							href='#'
-							className={`font-medium text-amber-900 ${activeTab === 'howto' ? 'border-b-2 border-amber-500' : ''}`}
-							onClick={(e) => {
-								e.preventDefault();
-								setActiveTab('howto');
-							}}
-						>
-							{t('navHowTo')}
-						</Link>
-					</div>
-					<TooltipProvider delayDuration={300} skipDelayDuration={0}>
-						<Tooltip>
-							<TooltipTrigger asChild>
-								<Button
-									onClick={handleQuickCopy}
-									className='relative bg-amber-500 text-black hover:bg-amber-600'
-								>
-									{t('quickCopy')}
-								</Button>
-							</TooltipTrigger>
-							<TooltipContent
-								sideOffset={5}
-								className='z-50 border-zinc-700 bg-zinc-800 text-white'
-								side='bottom'
-							>
-								<p>{t('quickCopyTooltip')}</p>
-							</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
-				</div>
-			</header>
+			<Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
 			{/* Área de anúncios esquerda (apenas desktop) */}
 			<div className='fixed bottom-0 left-0 top-[60px] hidden w-32 border-r border-amber-100 bg-[#fffdf5] lg:flex'>
@@ -257,19 +198,6 @@ function HomeContent() {
 										</CardContent>
 									</Card>
 								)}
-
-								{/* Anúncio horizontal após os resultados */}
-								<div className='mt-6 w-full overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
-									<ins
-										className='adsbygoogle'
-										style={{ display: 'block' }}
-										data-ad-client='ca-pub-3633949689305991'
-										data-ad-slot='3456789012'
-										data-ad-format='auto'
-										data-full-width-responsive='true'
-									></ins>
-									<Script id='horizontal-ad'>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</Script>
-								</div>
 							</div>
 						) : (
 							// Banner informativo - exibido apenas quando não há texto gerado
@@ -311,6 +239,18 @@ function HomeContent() {
 						</div>
 					</div>
 				)}
+				{/* Anúncio horizontal após os resultados */}
+				<div className='mt-6 w-full overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
+					<ins
+						className='adsbygoogle'
+						style={{ display: 'block' }}
+						data-ad-client='ca-pub-3633949689305991'
+						data-ad-slot='3456789012'
+						data-ad-format='auto'
+						data-full-width-responsive='true'
+					></ins>
+					<Script id='horizontal-ad'>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</Script>
+				</div>
 			</div>
 		</div>
 	);
