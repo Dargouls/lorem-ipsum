@@ -4,15 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { generateParagraphs, generateSingleSentence } from '@/lib/lorem-generator';
+import { generateParagraphs } from '@/lib/lorem-generator';
 import { locales } from '@/middleware';
 import { Copy } from 'lucide-react';
 import { NextIntlClientProvider, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
+import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import Script from 'next/script';
 
 import logo from '@/assets/brand/logo.png';
 import Image from 'next/image';
@@ -50,7 +50,7 @@ export default function Home() {
 
 	// Aguardar até que as mensagens estejam carregadas
 	if (!mounted || !messages) {
-		return <div className='paper-texture flex min-h-[2000px] flex-col bg-[#fffdf5]'></div>;
+		return <div className='paper-texture flex flex-col bg-[#fffdf5]'></div>;
 	}
 
 	return (
@@ -66,7 +66,6 @@ function HomeContent() {
 	const [paragraphs, setParagraphs] = useState('3');
 	const [loading, setLoading] = useState(false);
 	const [loremText, setLoremText] = useState<string[]>([]);
-	const [singleSentence, setSingleSentence] = useState('');
 	const [startWithClassic, setStartWithClassic] = useState(true);
 	const [activeTab, setActiveTab] = useState('home');
 
@@ -75,9 +74,6 @@ function HomeContent() {
 
 		// Simulando um carregamento
 		setTimeout(() => {
-			// Gerando uma frase única
-			setSingleSentence(generateSingleSentence(startWithClassic));
-
 			// Gerando parágrafos
 			const numParagraphs = parseInt(paragraphs, 10) || 3;
 			setLoremText(generateParagraphs(numParagraphs, startWithClassic));
@@ -99,10 +95,10 @@ function HomeContent() {
 	};
 
 	// Verifica se há texto gerado
-	const hasGeneratedText = singleSentence || loremText.length > 0;
+	const hasGeneratedText = loremText.length > 0;
 
 	return (
-		<div className='paper-texture flex min-h-[2000px] flex-col bg-[#fffdf5]'>
+		<div className='paper-texture flex flex-col bg-[#fffdf5]'>
 			{/* Header */}
 			<header className='fixed left-0 right-0 top-0 z-10 h-[60px] border-b border-amber-200 bg-white shadow-sm'>
 				<div className='container mx-auto flex h-full items-center justify-between px-4'>
@@ -156,34 +152,30 @@ function HomeContent() {
 			{/* Área de anúncios esquerda (apenas desktop) */}
 			<div className='fixed bottom-0 left-0 top-[60px] hidden w-32 border-r border-amber-100 bg-[#fffdf5] lg:flex'>
 				<div className='w-full p-4 text-center'>
-					<ins 
-						className="adsbygoogle"
+					<ins
+						className='adsbygoogle'
 						style={{ display: 'block' }}
-						data-ad-client="ca-pub-3633949689305991"
-						data-ad-slot="1234567890"
-						data-ad-format="auto"
-						data-full-width-responsive="true"
+						data-ad-client='ca-pub-3633949689305991'
+						data-ad-slot='1234567890'
+						data-ad-format='auto'
+						data-full-width-responsive='true'
 					></ins>
-					<Script id="sidebar-left-ad">
-						{`(adsbygoogle = window.adsbygoogle || []).push({});`}
-					</Script>
+					<Script id='sidebar-left-ad'>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</Script>
 				</div>
 			</div>
 
 			{/* Área de anúncios direita (apenas desktop) */}
 			<div className='fixed bottom-0 right-0 top-[60px] hidden w-32 border-l border-amber-100 bg-[#fffdf5] lg:flex'>
 				<div className='w-full p-4 text-center'>
-					<ins 
-						className="adsbygoogle"
+					<ins
+						className='adsbygoogle'
 						style={{ display: 'block' }}
-						data-ad-client="ca-pub-3633949689305991"
-						data-ad-slot="2345678901"
-						data-ad-format="auto"
-						data-full-width-responsive="true"
+						data-ad-client='ca-pub-3633949689305991'
+						data-ad-slot='2345678901'
+						data-ad-format='auto'
+						data-full-width-responsive='true'
 					></ins>
-					<Script id="sidebar-right-ad">
-						{`(adsbygoogle = window.adsbygoogle || []).push({});`}
-					</Script>
+					<Script id='sidebar-right-ad'>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</Script>
 				</div>
 			</div>
 
@@ -239,24 +231,6 @@ function HomeContent() {
 						{/* Área de resultados */}
 						{hasGeneratedText ? (
 							<div className='flex flex-col gap-6 bg-[#fffdf5] p-8'>
-								{/* Frase única */}
-								{singleSentence && (
-									<Card className='border border-amber-200 bg-white shadow-md'>
-										<CardHeader className='flex flex-row items-center justify-between pb-2'>
-											<CardTitle className='text-sm text-zinc-600'>{t('singleSentence')}</CardTitle>
-											<Button
-												variant='outline'
-												size='icon'
-												onClick={() => copyToClipboard(singleSentence)}
-												className='h-8 w-8 border-amber-300 text-amber-800 hover:bg-amber-50 hover:text-amber-900'
-											>
-												<Copy className='h-4 w-4' />
-											</Button>
-										</CardHeader>
-										<CardContent className='text-sm'>{singleSentence}</CardContent>
-									</Card>
-								)}
-
 								{/* Texto completo */}
 								{loremText.length > 0 && (
 									<Card className='border border-amber-200 bg-white shadow-md'>
@@ -283,20 +257,18 @@ function HomeContent() {
 										</CardContent>
 									</Card>
 								)}
-								
+
 								{/* Anúncio horizontal após os resultados */}
 								<div className='mt-6 w-full overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
-									<ins 
-										className="adsbygoogle"
+									<ins
+										className='adsbygoogle'
 										style={{ display: 'block' }}
-										data-ad-client="ca-pub-3633949689305991"
-										data-ad-slot="3456789012"
-										data-ad-format="auto"
-										data-full-width-responsive="true"
+										data-ad-client='ca-pub-3633949689305991'
+										data-ad-slot='3456789012'
+										data-ad-format='auto'
+										data-full-width-responsive='true'
 									></ins>
-									<Script id="horizontal-ad">
-										{`(adsbygoogle = window.adsbygoogle || []).push({});`}
-									</Script>
+									<Script id='horizontal-ad'>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</Script>
 								</div>
 							</div>
 						) : (
@@ -324,20 +296,18 @@ function HomeContent() {
 								</ol>
 							</div>
 						</Card>
-						
+
 						{/* Anúncio na página de Como Utilizar */}
 						<div className='mt-6 w-full overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
-							<ins 
-								className="adsbygoogle"
+							<ins
+								className='adsbygoogle'
 								style={{ display: 'block' }}
-								data-ad-client="ca-pub-3633949689305991"
-								data-ad-slot="4567890123"
-								data-ad-format="auto"
-								data-full-width-responsive="true"
+								data-ad-client='ca-pub-3633949689305991'
+								data-ad-slot='4567890123'
+								data-ad-format='auto'
+								data-full-width-responsive='true'
 							></ins>
-							<Script id="howto-ad">
-								{`(adsbygoogle = window.adsbygoogle || []).push({});`}
-							</Script>
+							<Script id='howto-ad'>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</Script>
 						</div>
 					</div>
 				)}

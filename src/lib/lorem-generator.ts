@@ -29,28 +29,6 @@ if (typeof window !== 'undefined') {
 }
 
 /**
- * Gera uma única frase de Lorem Ipsum
- * @param startWithClassic Se deve começar com a frase clássica
- */
-export function generateSingleSentence(startWithClassic: boolean = true): string {
-  // Se foi solicitado para começar com a frase clássica, retorna ela
-  if (startWithClassic) {
-    return classicFirstSentence;
-  }
-  
-  // Verificar se já estamos no modo cliente antes de usar aleatoriedade
-  if (!seeded && !clientOnly) {
-    // No servidor, sempre retorna a primeira frase para garantir consistência no SSR
-    return loremSentences[0];
-  }
-  
-  // No cliente, após a hidratação, podemos usar aleatoriedade
-  seeded = true;
-  const randomIndex = Math.floor(Math.random() * loremSentences.length);
-  return loremSentences[randomIndex];
-}
-
-/**
  * Gera um número específico de parágrafos de Lorem Ipsum
  * @param count Número de parágrafos a serem gerados
  * @param startWithClassic Se o primeiro parágrafo deve começar com a frase clássica
