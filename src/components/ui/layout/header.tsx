@@ -8,16 +8,16 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../too
 
 import logo from '@/assets/brand/logo.png';
 import { generateParagraphs } from '@/lib/lorem-generator';
+import { usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
 
-interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-	activeTab: string;
-	setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-}
+interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export default function Header({ activeTab, setActiveTab, ...props }: HeaderProps) {
+export default function Header({ ...props }: HeaderProps) {
 	const t = useTranslations('app');
-
+	const pathname = usePathname();
+	const locale = pathname.split('/')[1];
+	
 	const handleQuickCopy = () => {
 		const quickParagraph = generateParagraphs(1, true)[0];
 		// Usar diretamente writeText e mostrar apenas um toast
@@ -30,26 +30,18 @@ export default function Header({ activeTab, setActiveTab, ...props }: HeaderProp
 			<header className='fixed left-0 right-0 top-0 z-10 h-[60px] border-b border-amber-200 bg-white shadow-sm'>
 				<div className='container mx-auto flex h-full items-center justify-between px-4'>
 					<div className='flex items-center gap-6'>
-						<Link href='/'>
+						<Link href={`/${locale}`}>
 							<Image src={logo} alt='Logo' className='h-8 w-8' />
 						</Link>
 						<Link
-							href='#'
-							className={`font-medium text-amber-900 ${activeTab === 'home' ? 'border-b-2 border-amber-500' : ''}`}
-							onClick={(e) => {
-								e.preventDefault();
-								setActiveTab('home');
-							}}
+							href={`/${locale}`}
+							className={`font-medium text-amber-900 ${pathname === `/${locale}` ? 'border-b-2 border-amber-500' : ''}`}
 						>
 							{t('navHome')}
 						</Link>
 						<Link
-							href='#'
-							className={`font-medium text-amber-900 ${activeTab === 'howto' ? 'border-b-2 border-amber-500' : ''}`}
-							onClick={(e) => {
-								e.preventDefault();
-								setActiveTab('howto');
-							}}
+							href={`/${locale}/how-to`}
+							className={`font-medium text-amber-900 ${pathname === `/${locale}/how-to` ? 'border-b-2 border-amber-500' : ''}`}
 						>
 							{t('navHowTo')}
 						</Link>
