@@ -3,6 +3,7 @@ import { Libre_Baskerville, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { Toaster } from "react-hot-toast";
 import { locales } from "@/middleware";
+import Script from "next/script";
 
 const libreBaskerville = Libre_Baskerville({
   variable: "--font-baskerville",
@@ -32,6 +33,15 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning>
+      <head>
+        {/* Script do Google AdSense */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3633949689305991"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body
         className={`${libreBaskerville.variable} ${geistMono.variable} antialiased bg-[#fffdf5]`}
         suppressHydrationWarning
