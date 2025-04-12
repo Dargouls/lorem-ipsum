@@ -7,27 +7,66 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { generateParagraphs, generateSingleSentence } from '@/lib/lorem-generator';
 import { Copy } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-
-import logo from '@/assets/brand/logo.png';
+import { NextIntlClientProvider } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { locales } from '@/middleware';
 
 export default function Home() {
+	const params = useParams();
+	const locale = params.locale as string;
+
+	// Verificar se o locale é válido
+	useEffect(() => {
+		if (!locales.includes(locale)) {
+			notFound();
+		}
+	}, [locale]);
+
+	// Mensagens de tradução carregadas no cliente
+	const [messages, setMessages] = useState<any>(null);
+	const [mounted, setMounted] = useState(false);
+
+	// Carregar as traduções no cliente
+	useEffect(() => {
+		async function loadMessages() {
+			try {
+				const messages = (await import(`@/locales/${locale}/translation.json`)).default;
+				setMessages(messages);
+				setMounted(true);
+				// Definir o atributo lang do HTML para o locale atual
+				document.documentElement.lang = locale;
+			} catch (error) {
+				console.error('Falha ao carregar traduções:', error);
+			}
+		}
+		loadMessages();
+	}, [locale]);
+
+	// Aguardar até que as mensagens estejam carregadas
+	if (!mounted || !messages) {
+		return <div className='paper-texture flex min-h-[2000px] flex-col bg-[#fffdf5]'></div>;
+	}
+
+	return (
+		<NextIntlClientProvider locale={locale} messages={messages}>
+			<HomeContent />
+		</NextIntlClientProvider>
+	);
+}
+
+// Componente interno que usa as traduções
+function HomeContent() {
 	const t = useTranslations('app');
 	const [paragraphs, setParagraphs] = useState('3');
 	const [loading, setLoading] = useState(false);
 	const [loremText, setLoremText] = useState<string[]>([]);
 	const [singleSentence, setSingleSentence] = useState('');
-	const [mounted, setMounted] = useState(false);
 	const [startWithClassic, setStartWithClassic] = useState(true);
 	const [activeTab, setActiveTab] = useState('home');
-
-	// Use useEffect para garantir que o componente só renderize completamente no cliente
-	useEffect(() => {
-		setMounted(true);
-	}, []);
 
 	const generateLoremIpsum = () => {
 		setLoading(true);
@@ -52,28 +91,20 @@ export default function Home() {
 
 	const handleQuickCopy = () => {
 		const quickParagraph = generateParagraphs(1, true)[0];
-		copyToClipboard(quickParagraph);
+		// Usar diretamente writeText e mostrar apenas um toast
+		navigator.clipboard.writeText(quickParagraph);
 		toast.success(t('quickCopySuccess'));
 	};
-
-	// Retorna null durante a renderização no servidor para evitar problemas de hidratação
-	if (!mounted) {
-		return <div className='paper-texture flex flex-col bg-[#fffdf5]'></div>;
-	}
 
 	// Verifica se há texto gerado
 	const hasGeneratedText = singleSentence || loremText.length > 0;
 
 	return (
-		<div className='paper-texture flex flex-col bg-[#fffdf5]'>
+		<div className='paper-texture flex min-h-[2000px] flex-col bg-[#fffdf5]'>
+			{/* Header */}
 			<header className='fixed left-0 right-0 top-0 z-10 h-[60px] border-b border-amber-200 bg-white shadow-sm'>
 				<div className='container mx-auto flex h-full items-center justify-between px-4'>
 					<div className='flex items-center gap-6'>
-						<Link href='/'>
-							<div className='flex items-center gap-2'>
-								<Image src={logo} alt='Logo' width={32} height={32} />
-							</div>
-						</Link>
 						<Link
 							href='#'
 							className={`font-medium text-amber-900 ${activeTab === 'home' ? 'border-b-2 border-amber-500' : ''}`}

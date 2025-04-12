@@ -1,19 +1,22 @@
 import createMiddleware from 'next-intl/middleware';
 
+// Lista de locais disponíveis
+export const locales = ['en', 'pt'];
+export const defaultLocale = 'pt';
+
 // Middleware que gerencia a navegação localizada
 export default createMiddleware({
   // A lista de locais disponíveis
-  locales: ['en', 'pt'],
+  locales,
   
-  // Se a localidade no caminho não for encontrada,
-  // `defaultLocale` será usada
-  defaultLocale: 'pt',
+  // Locale padrão
+  defaultLocale,
   
-  // Se um usuário visitar a raiz, ele será redirecionado
-  localePrefix: 'as-needed',
+  // Se um usuário visitar a raiz, ele será redirecionado para o locale apropriado
+  localePrefix: 'as-needed'
 });
 
 export const config = {
-  // Ignora arquivos estáticos e API routes
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+  // Matcher configurado para funcionar com i18n no Next.js 15
+  matcher: ['/((?!api|_next|.*\\..*).*)']
 }; 

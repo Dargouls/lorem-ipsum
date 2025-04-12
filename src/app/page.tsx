@@ -1,5 +1,7 @@
+import { redirect } from 'next/navigation';
+import { defaultLocale } from '@/middleware';
+
 export default function HomePage() {
-  // Esta página será redirecionada automaticamente pelo middleware
-  // para a localidade padrão (/pt ou /en) baseado no navegador do usuário
-  return null;
+  // Esta página será redirecionada automaticamente para a localidade padrão
+  redirect(`/${defaultLocale}`);
 } 
