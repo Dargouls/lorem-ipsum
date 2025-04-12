@@ -1,6 +1,5 @@
 'use client';
 
-import AdComponent from '@/components/AdComponnet/AdComponent';
 import { Card } from '@/components/ui/card';
 
 import { locales } from '@/middleware';
@@ -75,9 +74,9 @@ function HowToContent() {
 					</Card>
 
 					{/* Anúncio na página de Como Utilizar */}
-					<div className='mt-6 w-full overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
+					{/* <div className='mt-6 w-full overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
 						<AdComponent adSlot='4218034888' />
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>
