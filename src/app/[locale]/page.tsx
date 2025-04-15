@@ -126,15 +126,14 @@ export default function Home() {
 				)}
 
 				{/* Anúncio lateral esquerda */}
-				<div className='fixed bottom-0 left-0 top-[60px] hidden w-32 border-r border-amber-100 bg-[#fffdf5] lg:flex'>
+				{/* <div className='fixed bottom-0 left-0 top-[60px] hidden w-32 border-r border-amber-100 bg-[#fffdf5] lg:flex'>
 					<AdComponent adSlot='9821715353' />
-				</div>
+				</div> */}
 
 				{/* Anúncio lateral direita */}
-				<div className='fixed bottom-0 right-0 top-[60px] hidden w-32 border-l border-amber-100 bg-[#fffdf5] lg:flex'>
-					{' '}
+				{/* <div className='fixed bottom-0 right-0 top-[60px] hidden w-32 border-l border-amber-100 bg-[#fffdf5] lg:flex'>
 					<AdComponent adSlot='9470361569' />
-				</div>
+				</div> */}
 
 				{/* Anúncio horizontal após os resultados */}
 				<div className='mx-auto mt-6 w-full max-w-3xl overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
