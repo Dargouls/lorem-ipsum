@@ -1,38 +1,62 @@
-'use client';
-
-import Script from 'next/script';
+import Router from 'next/router';
 import { useEffect } from 'react';
-
-interface AdComponentProps {
-	adSlot: string;
-	adFormat?: string;
-	adLayout?: string;
+declare global {
+	interface Window {
+		adsbygoogle: unknown[];
+	}
 }
 
-const AdComponent: React.FC<AdComponentProps> = ({ adSlot, adFormat = 'auto', adLayout = '' }) => {
+interface AdsBannerProps {
+	'data-ad-slot': string;
+	'data-ad-format': string;
+	'data-full-width-responsive': string;
+	'data-ad-layout'?: string;
+}
+
+const AdBanner = (props: AdsBannerProps) => {
 	useEffect(() => {
-		try {
-			(window as any).adsbygoogle = (window as any).adsbygoogle || [];
-			(window as any).adsbygoogle.push({});
-		} catch (e) {
-			console.error('Error loading ads:', e);
+		const handleRouteChange = () => {
+			const intervalId = setInterval(() => {
+				try {
+					// Check if the 'ins' element already has an ad in it
+					if (window.adsbygoogle) {
+						window.adsbygoogle.push({});
+						clearInterval(intervalId);
+					}
+				} catch (err) {
+					console.error('Error pushing ads: ', err);
+					clearInterval(intervalId); // Ensure we clear interval on errors too
+				}
+			}, 100);
+			return () => clearInterval(intervalId); // Clear interval on component unmount
+		};
+
+		// Run the function when the component mounts
+		handleRouteChange();
+
+		// Subscribe to route changes
+		if (typeof window !== 'undefined') {
+			Router.events.on('routeChangeComplete', handleRouteChange);
+
+			// Unsubscribe from route changes when the component unmounts
+			return () => {
+				Router.events.off('routeChangeComplete', handleRouteChange);
+			};
 		}
 	}, []);
 
 	return (
-		<>
-			<ins
-				className='adsbygoogle'
-				style={{ display: 'block' }}
-				data-ad-client='ca-pub-3633949689305991'
-				data-ad-slot={adSlot}
-				data-ad-format={adFormat}
-				data-ad-layout={adLayout}
-				data-full-width-responsive='true'
-			></ins>
-			<Script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</Script>
-		</>
+		<ins
+			className='adsbygoogle adbanner-customize mt-2'
+			style={{
+				display: 'block',
+				overflow: 'hidden',
+				border: process.env.NODE_ENV === 'development' ? '1px solid red' : 'none',
+			}}
+			data-adtest='on'
+			data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
+			{...props}
+		/>
 	);
 };
-
-export default AdComponent;
+export default AdBanner;
