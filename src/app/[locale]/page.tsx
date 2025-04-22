@@ -85,6 +85,12 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
+				<AdComponent
+					data-ad-slot='1460009608'
+					data-full-width-responsive='true'
+					//  data-ad-layout="in-article"
+					data-ad-format='fluid'
+				/>
 
 				{/* Área de resultados */}
 				{hasGeneratedText ? (
@@ -136,14 +142,8 @@ export default function Home() {
 				</div> */}
 
 				{/* Anúncio horizontal após os resultados */}
-				<div className='mx-auto mt-6 w-full max-w-3xl overflow-hidden rounded-md border border-amber-200 bg-white p-2'>
-					<AdComponent
-						data-ad-slot='1460009608'
-						data-full-width-responsive='true'
-						//  data-ad-layout="in-article"
-						data-ad-format='fluid'
-					/>
-				</div>
+				{/* <div className='mx-auto mt-6 w-full max-w-3xl overflow-hidden rounded-md border border-amber-200 bg-white p-2'> */}
+				{/* </div> */}
 			</div>
 		</div>
 	);
